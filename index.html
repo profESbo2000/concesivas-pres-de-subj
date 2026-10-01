@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberConcesivas Lab | El Universo del Subjuntivo vs. Indicativo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Outfit:wght@300;400;600;800&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #070B19;
+      --bg-card: rgba(15, 23, 42, 0.75);
+      --neon-cyan: #00F0FF;
+      --neon-pink: #FF007F;
+      --neon-purple: #A855F7;
+      --neon-green: #10B981;
+      --neon-yellow: #FACC15;
+      --neon-orange: #FF7700;
+      --text-bright: #F8FAFC;
+      --text-dim: #94A3B8;
+      --border-glow: rgba(0, 240, 255, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-bright);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(255, 0, 127, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      background: rgba(7, 11, 25, 0.85);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      color: var(--text-bright);
+      padding: 0.6rem 1.2rem;
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn:hover, .nav-btn.active {
+      background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(255, 0, 127, 0.5);
+      transform: translateY(-2px);
+    }
+
+    main {
+      max-width: 1150px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 6rem;
+    }
+
+    .section {
+      display: none;
+      animation: sectionFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes sectionFadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.6rem;
+      text-align: center;
+      margin-bottom: 0.8rem;
+      background: linear-gradient(135deg, #FFFFFF, var(--neon-cyan));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+    }
+
+    .hero-subtitle {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 1.15rem;
+      margin-bottom: 3rem;
+      max-width: 750px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .glass-card {
+      background: var(--bg-card);
+      border-radius: 24px;
+      padding: 2.2rem;
+      border: 1px solid var(--border-glow);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-pink), transparent);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 240, 255, 0.1);
+      border: 1px solid var(--neon-cyan);
+      color: var(--neon-cyan);
+      padding: 0.4rem 1rem;
+      border-radius: 99px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1.2rem;
+    }
+
+    .duo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 768px) {
+      .duo-grid { grid-template-columns: 1fr; }
+    }
+
+    .mode-box {
+      border-radius: 20px;
+      padding: 1.8rem;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .mode-box:hover {
+      transform: translateY(-4px);
+    }
+
+    .mode-indicative {
+      background: rgba(16, 185, 129, 0.08);
+      border: 2px solid var(--neon-green);
+    }
+
+    .mode-subjunctive {
+      background: rgba(255, 0, 127, 0.08);
+      border: 2px solid var(--neon-pink);
+    }
+
+    .mode-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .mode-indicative .mode-title { color: var(--neon-green); }
+    .mode-subjunctive .mode-title { color: var(--neon-pink); }
+
+    .example-tag {
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 0 12px 12px 0;
+      font-size: 1.05rem;
+    }
+
+    .mode-indicative .example-tag { border-color: var(--neon-green); }
+    .mode-subjunctive .example-tag { border-color: var(--neon-pink); }
+
+    .detective-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(7, 11, 25, 0.8);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 1px dashed rgba(168, 85, 247, 0.4);
+      margin: 2rem 0;
+    }
+
+    .svg-detective {
+      width: 160px;
+      height: 160px;
+      filter: drop-shadow(0 0 20px rgba(168, 85, 247, 0.6));
+      animation: floatGraphic 4s ease-in-out infinite;
+    }
+
+    @keyframes floatGraphic {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    .cyber-bubble {
+      position: relative;
+      background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+      color: #FFF;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      padding: 1.2rem 2rem;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      margin-top: 1.5rem;
+      text-align: center;
+      box-shadow: 0 8px 30px rgba(255, 0, 127, 0.4);
+      letter-spacing: 0.5px;
+    }
+
+    .cyber-bubble::after {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 0 12px 12px;
+      border-style: solid;
+      border-color: var(--neon-purple) transparent;
+    }
+
+    .nexos-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .nexo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.2rem;
+      border-radius: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .nexo-card:hover {
+      border-color: var(--neon-yellow);
+      background: rgba(250, 204, 21, 0.1);
+      box-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .nexo-es {
+      font-weight: 800;
+      color: var(--neon-yellow);
+      font-size: 1.15rem;
+    }
+
+    .nexo-traduccion {
+      font-size: 0.88rem;
+      color: var(--neon-cyan);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.15);
+      padding-top: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .fill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .fill-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .fill-item:focus-within {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+    }
+
+    .sentence-line {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .num-pill {
+      background: rgba(0, 240, 255, 0.15);
+      color: var(--neon-cyan);
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 0.9rem;
+      margin-right: 0.3rem;
+    }
+
+    .cyber-input {
+      background: rgba(7, 11, 25, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      padding: 0.4rem 0.8rem;
+      color: var(--neon-yellow);
+      font-family: 'Fira Code', monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      min-width: 140px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .cyber-input:focus {
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+
+    .cyber-input.correct {
+      border-color: var(--neon-green) !important;
+      background: rgba(16, 185, 129, 0.15) !important;
+      color: #6EE7B7 !important;
+    }
+
+    .cyber-input.wrong {
+      border-color: var(--neon-pink) !important;
+      background: rgba(255, 0, 127, 0.15) !important;
+      color: #FCA5A5 !important;
+    }
+
+    .feedback-hint {
+      font-size: 0.88rem;
+      color: var(--text-dim);
+      display: none;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 0.2rem;
+    }
+
+    .feedback-hint.show {
+      display: flex;
+    }
+
+    .btn-action-container {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .cyber-btn {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.9rem 2rem;
+      border-radius: 99px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-cyan), var(--neon-purple));
+      color: #000;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.7);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-bright);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--neon-pink);
+    }
+
+    .btn-accent {
+      background: rgba(250, 204, 21, 0.15);
+      border: 1px solid var(--neon-yellow);
+      color: var(--neon-yellow);
+    }
+
+    .btn-accent:hover {
+      background: rgba(250, 204, 21, 0.3);
+      box-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
+    }
+
+    .quiz-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid var(--neon-purple);
+      border-radius: 0 16px 16px 0;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .quiz-opt-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      color: var(--text-bright);
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.95rem;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+
+    .quiz-opt-btn:hover {
+      background: rgba(255, 255, 255, 0.09);
+      border-color: var(--neon-cyan);
+    }
+
+    .quiz-opt-btn.correct {
+      background: rgba(16, 185, 129, 0.2) !important;
+      border-color: var(--neon-green) !important;
+      color: #6EE7B7 !important;
+    }
+
+    .quiz-opt-btn.wrong {
+      background: rgba(255, 0, 127, 0.2) !important;
+      border-color: var(--neon-pink) !important;
+      color: #FCA5A5 !important;
+    }
+
+    .scoreboard {
+      background: linear-gradient(135deg, rgba(0, 240, 255, 0.15), rgba(168, 85, 247, 0.15));
+      border: 1px solid var(--neon-cyan);
+      border-radius: 20px;
+      padding: 1.8rem;
+      text-align: center;
+      margin-top: 2.5rem;
+      display: none;
+    }
+
+    .score-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: var(--neon-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .answers-box {
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px dashed var(--neon-yellow);
+      border-radius: 16px;
+      display: none;
+    }
+
+    .answers-box.show {
+      display: block;
+    }
+
+    .answers-title {
+      color: var(--neon-yellow);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .answers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .answer-item {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <span>⚡ CYBER-CONCESIVAS</span>
+    </div>
+    <nav>
+      <button class="nav-btn active" onclick="switchSection('teoria', this)">📚 Núcleo Teórico</button>
+      <button class="nav-btn" onclick="switchSection('practica10', this)">⚡ 10 Ejercicios Madre</button>
+      <button class="nav-btn" onclick="switchSection('matriz-quiz', this)">🎯 Desafío Modo vs. Sentido (10)</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- SECCIÓN 1: TEORÍA -->
+    <section id="teoria" class="section active">
+      <h1 class="hero-title">El Dominio Concesivo</h1>
+      <p class="hero-subtitle">Aprende a expresar obstáculos o dificultades que NUNCA impiden que la acción principal se realice.</p>
+
+      <div class="glass-card">
+        <div class="badge">💡 CONCEPTO CLAVE</div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.8rem;">¿Qué es una Oración Concesiva?</h2>
+        <p style="color: var(--text-dim); font-size: 1.1rem; line-height: 1.8;">
+          Una oración concesiva presenta una <strong>dificultad, objeción o freno</strong> para que ocurra una acción. Sin embargo, la acción principal se realiza de todos modos.
+        </p>
+
+        <!-- COMPARATIVA -->
+        <div class="duo-grid">
+          <div class="mode-box mode-indicative">
+            <div class="mode-title">
+              <span>🟢 INDICATIVO</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-bright);">
+              <strong>Hecho Real / Experimentado / Cierto en este momento.</strong>
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-dim); margin-top: 0.4rem;">
+              El hablante da por cierta la información o está sucediendo en el presente exacto.
+            </p>
+            <div class="example-tag">
+              <em>"Aunque el árbitro <strong>pita</strong> en su contra, ganarán el partido."</em><br>
+              <small style="color: var(--neon-green);">➔ El árbitro está pitando AHORA MISMO en vivo.</small>
+            </div>
+          </div>
+
+          <div class="mode-box mode-subjunctive">
+            <div class="mode-title">
+              <span>🔴 PRESENTE DE SUBJUNTIVO</span>
+            </div>
+            <p style="font-size: 0.95rem; color: var(--text-bright);">
+              <strong>Hipótesis / Futuro / Incertidumbre / Irrelevancia.</strong>
+            </p>
+            <p style="font-size: 0.9rem; color: var(--text-dim); margin-top: 0.4rem;">
+              No importa qué pase o no sabemos si es cierto; la consecuencia futura no cambiará.
+            </p>
+            <div class="example-tag">
+              <em>"Aunque el árbitro <strong>pite</strong> en su contra, ganarán el partido."</em><br>
+              <small style="color: var(--neon-pink);">➔ No importa si pita o no pita luego: igual ganarán.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- ESCENA VISUAL DETECTIVE -->
+        <div class="detective-card">
+          <svg class="svg-detective" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="46" fill="rgba(168, 85, 247, 0.12)" stroke="#A855F7" stroke-width="2"/>
+            <path d="M30 45 C30 30, 70 30, 70 45 Z" fill="#FF007F"/>
+            <rect x="20" y="44" width="60" height="6" rx="3" fill="#00F0FF"/>
+            <circle cx="50" cy="58" r="14" fill="#F8FAFC"/>
+            <circle cx="68" cy="68" r="12" fill="rgba(0,240,255,0.3)" stroke="#00F0FF" stroke-width="3"/>
+            <line x1="77" y1="77" x2="90" y2="90" stroke="#00F0FF" stroke-width="5" stroke-linecap="round"/>
+          </svg>
+
+          <div class="cyber-bubble">
+            🕵️‍♂️ "¡AUNQUE TE ESCONDAS, TE ENCONTRARÉ!"
+          </div>
+          <p style="margin-top: 1rem; color: var(--text-dim); font-size: 0.95rem; text-align: center;">
+            (Usa <strong>Presente de Subjuntivo "escondas"</strong> porque expresa una hipótesis futura indiferente).
+          </p>
+        </div>
+
+        <!-- NEXOS CON TRADUCCIÓN DEBAJO -->
+        <h3 style="margin-top: 2rem; margin-bottom: 0.8rem;">Conectores y Nexos Concesivos Habituales</h3>
+        <div class="nexos-grid">
+          <div class="nexo-card">
+            <span class="nexo-es">Aunque</span>
+            <span class="nexo-traduccion">🇬🇧 Although / Even if</span>
+          </div>
+          <div class="nexo-card">
+            <span class="nexo-es">A pesar de (que)</span>
+            <span class="nexo-traduccion">🇬🇧 In spite of / Despite</span>
+          </div>
+          <div class="nexo-card">
+            <span class="nexo-es">Pese a (que)</span>
+            <span class="nexo-traduccion">🇬🇧 Despite / Even though</span>
+          </div>
+          <div class="nexo-card">
+            <span class="nexo-es">Si bien</span>
+            <span class="nexo-traduccion">🇬🇧 While / Although</span>
+          </div>
+          <div class="nexo-card">
+            <span class="nexo-es">Por mucho / muy que</span>
+            <span class="nexo-traduccion">🇬🇧 No matter how much / As much as</span>
+          </div>
+          <div class="nexo-card">
+            <span class="nexo-es">Y eso que</span>
+            <span class="nexo-traduccion">🇬🇧 Even though / And that's considering</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 2: 10 EJERCICIOS COMPLETAR (PRESENTE DE SUBJUNTIVO) -->
+    <section id="practica10" class="section">
+      <h1 class="hero-title">10 Ejercicios de Entrenamiento Madre</h1>
+      <p class="hero-subtitle">Escribe la forma verbal en <strong>Presente de Subjuntivo</strong> (o Indicativo/Infinitivo según la regla).</p>
+
+      <div class="glass-card">
+        <div class="badge">📝 PRÁCTICA DIRECTA</div>
+        
+        <div class="fill-list" id="fillListContainer">
+          <div class="fill-item" data-answer="haga">
+            <div class="sentence-line">
+              <span class="num-pill">1</span>
+              <span>Ahora no estudia casi nada, pero aunque</span>
+              <input type="text" class="cyber-input" data-index="1" placeholder="hacer">
+              <span>los deberes todos los días, dudo que consiga aprobar.</span>
+            </div>
+            <div class="feedback-hint" id="hint-1">💡 Pista: Escenario hipotético orientado al presente/futuro ➔ Presente de Subjuntivo (haga).</div>
+          </div>
+
+          <div class="fill-item" data-answer="repitamos">
+            <div class="sentence-line">
+              <span class="num-pill">2</span>
+              <span>Por mucho que nosotros se lo</span>
+              <input type="text" class="cyber-input" data-index="2" placeholder="repetir">
+              <span>de ahora en adelante, creo que nunca cambiará su actitud.</span>
+            </div>
+            <div class="feedback-hint" id="hint-2">💡 Pista: "De ahora en adelante" indica una acción futura hipotética ➔ Presente de Subjuntivo (repitamos).</div>
+          </div>
+
+          <div class="fill-item" data-answer="tiene">
+            <div class="sentence-line">
+              <span class="num-pill">3</span>
+              <span>Le han dado el empleo, y eso que no</span>
+              <input type="text" class="cyber-input" data-index="3" placeholder="tener">
+              <span>ni idea de contabilidad.</span>
+            </div>
+            <div class="feedback-hint" id="hint-3">💡 Pista: El nexo "Y ESO QUE" siempre exige Indicativo porque afirma un hecho real (tiene).</div>
+          </div>
+
+          <div class="fill-item" data-answer="tengas">
+            <div class="sentence-line">
+              <span class="num-pill">4</span>
+              <span>No he visto tu oficina, pero por muy organizado que tú lo</span>
+              <input type="text" class="cyber-input" data-index="4" placeholder="tener">
+              <span>todo, no significa que no haya que limpiar.</span>
+            </div>
+            <div class="feedback-hint" id="hint-4">💡 Pista: Especulación general mediante "Por muy... que" ➔ Presente de Subjuntivo (tengas).</div>
+          </div>
+
+          <div class="fill-item" data-answer="hace">
+            <div class="sentence-line">
+              <span class="num-pill">5</span>
+              <span>Pese a que ya</span>
+              <input type="text" class="cyber-input" data-index="5" placeholder="hacer">
+              <span>buen tiempo, yo sigo pasando frío en este momento.</span>
+            </div>
+            <div class="feedback-hint" id="hint-5">💡 Pista: "Ya" constata un hecho real y experimentado en el presente ➔ Indicativo (hace).</div>
+          </div>
+
+          <div class="fill-item" data-answer="sea">
+            <div class="sentence-line">
+              <span class="num-pill">6</span>
+              <span>Aunque</span>
+              <input type="text" class="cyber-input" data-index="6" placeholder="ser">
+              <span>el último hombre del mundo, no saldré con él.</span>
+            </div>
+            <div class="feedback-hint" id="hint-6">💡 Pista: Condición/hipótesis irrelevante en presente/futuro ➔ Presente de Subjuntivo (sea).</div>
+          </div>
+
+          <div class="fill-item" data-answer="tener">
+            <div class="sentence-line">
+              <span class="num-pill">7</span>
+              <span>Pese a no</span>
+              <input type="text" class="cyber-input" data-index="7" placeholder="tener">
+              <span>mucho dinero, siempre hace donaciones a la caridad.</span>
+            </div>
+            <div class="feedback-hint" id="hint-7">💡 Pista: Tras la preposición "Pese a no..." se utiliza siempre la forma no personal ➔ Infinitivo (tener).</div>
+          </div>
+
+          <div class="fill-item" data-answer="parezca">
+            <div class="sentence-line">
+              <span class="num-pill">8</span>
+              <span>No sé si te gustará, pero por muy interesante que te</span>
+              <input type="text" class="cyber-input" data-index="8" placeholder="parecer">
+              <span>la película, no te la recomiendo.</span>
+            </div>
+            <div class="feedback-hint" id="hint-8">💡 Pista: Estructura "Por muy + adj + que" ➔ Presente de Subjuntivo (parezca).</div>
+          </div>
+
+          <div class="fill-item" data-answer="viva">
+            <div class="sentence-line">
+              <span class="num-pill">9</span>
+              <span>Aunque él</span>
+              <input type="text" class="cyber-input" data-index="9" placeholder="vivir">
+              <span>en Sevilla hoy en día, no le gusta mucho el calor.</span>
+            </div>
+            <div class="feedback-hint" id="hint-9">💡 Pista: Si el hablante no está seguro de dónde vive o plantea la posibilidad ➔ Presente de Subjuntivo (viva).</div>
+          </div>
+
+          <div class="fill-item" data-answer="digas">
+            <div class="sentence-line">
+              <span class="num-pill">10</span>
+              <span>Digas lo que</span>
+              <input type="text" class="cyber-input" data-index="10" placeholder="decir">
+              <span>, no pienso abrirte la puerta esta tarde.</span>
+            </div>
+            <div class="feedback-hint" id="hint-10">💡 Pista: Estructura reduplicada concesiva (Subjuntivo + relativo + Subjuntivo): "Digas lo que..." ➔ Presente de Subjuntivo (digas).</div>
+          </div>
+        </div>
+
+        <div class="btn-action-container">
+          <button class="cyber-btn btn-primary" onclick="evaluateFillExercises()">🚀 Verificar Respuestas</button>
+          <button class="cyber-btn btn-accent" onclick="toggleAnswers()">👁️ Ver Respuestas</button>
+          <button class="cyber-btn btn-secondary" onclick="resetFillExercises()">🔄 Reiniciar Ejercicios</button>
+        </div>
+
+        <!-- PANEL CON LAS RESPUESTAS CORRECTAS -->
+        <div id="answersBox" class="answers-box">
+          <div class="answers-title">🔑 Solucionario de Ejercicios:</div>
+          <div class="answers-grid">
+            <div class="answer-item">1. haga</div>
+            <div class="answer-item">2. repitamos</div>
+            <div class="answer-item">3. tiene</div>
+            <div class="answer-item">4. tengas</div>
+            <div class="answer-item">5. hace</div>
+            <div class="answer-item">6. sea</div>
+            <div class="answer-item">7. tener</div>
+            <div class="answer-item">8. parezca</div>
+            <div class="answer-item">9. viva</div>
+            <div class="answer-item">10. digas</div>
+          </div>
+        </div>
+
+        <div id="fillScoreboard" class="scoreboard">
+          <div class="score-title" id="scoreTitle">¡Misión Cumplida!</div>
+          <p id="scoreText" style="font-size: 1.1rem; color: var(--text-bright);"></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECCIÓN 3: DESAFÍO MODO VS SENTIDO (10 PREGUNTAS EN PRESENTE) -->
+    <section id="matriz-quiz" class="section">
+      <h1 class="hero-title">Desafío: Modo vs. Sentido (10 Preguntas)</h1>
+      <p class="hero-subtitle">Selecciona la opción correcta distinguiendo entre <strong>Indicativo (Realidad)</strong> y <strong>Presente de Subjuntivo (Hipótesis/Futuro)</strong>.</p>
+
+      <div class="glass-card">
+        <!-- 1 -->
+        <div class="quiz-card">
+          <h3>1. "Aunque ______ lloviendo a cántaros ahora mismo, saldré a correr igual." (Acción real comprobada en el presente)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">A) está (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">B) esté (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="quiz-card">
+          <h3>2. "Aunque ______ lloviendo mañana, la maratón se celebrará." (Hipótesis orientada al futuro)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">A) está (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">B) esté (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="quiz-card">
+          <h3>3. "A pesar de que ______ mucho dinero actualmente, no demuestra ser feliz." (Hecho real verificado)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">A) tiene (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">B) tenga (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="quiz-card">
+          <h3>4. "Haga lo que ______, siempre logra mantener la calma." (Estructura de irrelevancia en presente/futuro)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">A) hace (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">B) haga (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="quiz-card">
+          <h3>5. "Por mucho que me lo ______, no vas a convencerme." (Hipótesis sobre algo que aún no ha ocurrido)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">A) explicas (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">B) expliques (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="quiz-card">
+          <h3>6. "Y eso que ______ temprano todos los días, el tráfico siempre está terrible." (Hecho habitual constatado)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">A) salimos (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">B) salgamos (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 7 -->
+        <div class="quiz-card">
+          <h3>7. "Aunque me ______ la verdad más tarde, me costará volver a confiar." (Incertidumbre futura)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">A) dice (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">B) diga (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 8 -->
+        <div class="quiz-card">
+          <h3>8. "Si bien el proyecto ______ ciertos fallos, por ahora funciona adecuadamente." (Verificación real del presente)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">A) tiene (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">B) tenga (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 9 -->
+        <div class="quiz-card">
+          <h3>9. "Pese a que no ______ experiencia previa, realiza un trabajo excelente." (Facto verídico del trabajador)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">A) tiene (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">B) tenga (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+
+        <!-- 10 -->
+        <div class="quiz-card">
+          <h3>10. "Por muy difícil que ______ el examen de mañana, confío en que aprobarás." (Escenario no experimentado/futuro)</h3>
+          <div class="quiz-options">
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, false)">A) es (Indicativo)</button>
+            <button class="quiz-opt-btn" onclick="checkQuiz(this, true)">B) sea (Presente de Subjuntivo)</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound(type) {
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+
+      const now = audioCtx.currentTime;
+
+      if (type === 'click') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(450, now);
+        gain.gain.setValueAtTime(0.05, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'success') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.08);
+        osc.frequency.setValueAtTime(783.99, now + 0.16);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } else if (type === 'wrong') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.setValueAtTime(180, now + 0.1);
+        gain.gain.setValueAtTime(0.08, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.start(now);
+        osc.stop(now + 0.25);
+      }
+    }
+
+    function switchSection(sectionId, btn) {
+      playSound('click');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+
+      document.getElementById(sectionId).classList.add('active');
+      btn.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function evaluateFillExercises() {
+      const items = document.querySelectorAll('.fill-item');
+      let score = 0;
+      let total = items.length;
+
+      items.forEach((item) => {
+        const input = item.querySelector('.cyber-input');
+        const validAnswers = item.getAttribute('data-answer').toLowerCase().split(',');
+        const userAnswer = input.value.trim().toLowerCase();
+        const hint = item.querySelector('.feedback-hint');
+
+        if (userAnswer !== "" && validAnswers.includes(userAnswer)) {
+          input.classList.remove('wrong');
+          input.classList.add('correct');
+          if (hint) hint.classList.remove('show');
+          score++;
+        } else {
+          input.classList.remove('correct');
+          input.classList.add('wrong');
+          if (hint) hint.classList.add('show');
+        }
+      });
+
+      const scoreboard = document.getElementById('fillScoreboard');
+      const scoreTitle = document.getElementById('scoreTitle');
+      const scoreText = document.getElementById('scoreText');
+
+      scoreboard.style.display = 'block';
+
+      if (score === total) {
+        playSound('success');
+        scoreTitle.textContent = "🎉 ¡PERFECCIÓN TOTAL!";
+        scoreText.textContent = `Has acertado ${score} de ${total} respuestas. ¡Dominas las concesivas y el Presente de Subjuntivo!`;
+      } else {
+        playSound('wrong');
+        scoreTitle.textContent = "⚡ RESULTADOS DE LA EVALUACIÓN";
+        scoreText.textContent = `Has obtenido ${score} de ${total} aciertos. Revisa las pistas para corregir tus errores.`;
+      }
+    }
+
+    function resetFillExercises() {
+      playSound('click');
+      document.querySelectorAll('.cyber-input').forEach(input => {
+        input.value = '';
+        input.classList.remove('correct', 'wrong');
+      });
+      document.querySelectorAll('.feedback-hint').forEach(hint => {
+        hint.classList.remove('show');
+      });
+      document.getElementById('fillScoreboard').style.display = 'none';
+      document.getElementById('answersBox').classList.remove('show');
+    }
+
+    function toggleAnswers() {
+      playSound('click');
+      const box = document.getElementById('answersBox');
+      box.classList.toggle('show');
+    }
+
+    function checkQuiz(btn, isCorrect) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.quiz-opt-btn').forEach(b => {
+        b.disabled = true;
+        b.classList.remove('correct', 'wrong');
+      });
+
+      if (isCorrect) {
+        btn.classList.add('correct');
+        playSound('success');
+      } else {
+        btn.classList.add('wrong');
+        playSound('wrong');
+      }
+    }
+  </script>
+</body>
+</html>
